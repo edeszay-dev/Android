@@ -16,18 +16,15 @@ public class ConstraintLayoutActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_constraint_layout2);
-        
+
         View mainView = findViewById(R.id.main);
         if (mainView != null) {
-            final int originalPaddingLeft = mainView.getPaddingLeft();
-            final int originalPaddingTop = mainView.getPaddingTop();
-            final int originalPaddingRight = mainView.getPaddingRight();
-            final int originalPaddingBottom = mainView.getPaddingBottom();
-
             ViewCompat.setOnApplyWindowInsetsListener(mainView, (v, insets) -> {
-                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
-                v.setPadding(originalPaddingLeft + systemBars.left, originalPaddingTop + systemBars.top,
-                        originalPaddingRight + systemBars.right, originalPaddingBottom + systemBars.bottom);
+                Insets systemBars = insets.getInsets(
+                        WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout()
+                );
+                // 仅给顶部避让，底部让绿色 DEPART 按钮直接沉浸到底
+                v.setPadding(0, systemBars.top, 0, 0);
                 return insets;
             });
         }
